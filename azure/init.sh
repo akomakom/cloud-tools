@@ -28,7 +28,7 @@ function generate_toolchains() {
   local target_file="$HOME/.m2/toolchains.xml"
   mkdir -p "$HOME/.m2"
   echo "<?xml version="1.0" encoding="UTF-8"?>" > $target_file
-  echo "<toolchains>" > $target_file
+  echo "<toolchains>" >> $target_file
 
   # look at the installed JDKs
    
