@@ -4,20 +4,18 @@ function log() {
   echo "$0: $*"
 }
 
-# vendor, "version path"
+# vendor, version, path
 function _add_toolchain() {
-  version=$(echo $2 | cut -d ' ' -f 1)
-  path=$(echo $2 | cut -d ' ' -f 2)
   cat <<EOF
 
     <toolchain>
         <type>jdk</type>
         <provides>
-            <version>$version</version>
+            <version>$2</version>
             <vendor>$1</vendor>
         </provides>
         <configuration>
-            <jdkHome>$path</jdkHome>
+            <jdkHome>$3</jdkHome>
         </configuration>
     </toolchain>
  
@@ -34,17 +32,17 @@ function generate_toolchains() {
    
   # oracle paths:
   find /usr/java -type f -name javac | grep -v jre | grep -E "[0-9]\.[0-9]" | sort | sed "s/^\(.*jdk\([0-9]\.[0-9]\)\.[0-9].*\)\/bin\/javac$/\2 \1/" | while read line ; do
-    _add_toolchain "Oracle Corporation" "$line" >> $target_file
+    _add_toolchain 'Oracle Corporation' $line >> $target_file
   done 
    
   # openjdk paths
   find /usr/lib*/jvm -type f -name javac | grep -v jre | grep -E "[0-9]\.[0-9]" | sort | sed "s/^\(.*java-\([0-9]\.[0-9]\)\.[0-9].*\)\/bin\/javac$/\2 \1/" | while read line ; do
-    _add_toolchain "openjdk" "$line" >> $target_file
+    _add_toolchain openjdk $line >> $target_file
   done
   
   # zulu paths:
   find /usr/lib*/jvm -type f -name javac | grep -v jre | grep -E -- "zulu-" | sort | sed "s/^\(.*zulu-\([^/]*\)\)\/bin\/javac$/1.\2 \1/" | while read line ; do
-    _add_toolchain "zulu" "$line" >> $target_file
+    _add_toolchain zulu $line >> $target_file
   done
   
   # ubuntu style
