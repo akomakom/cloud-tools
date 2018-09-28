@@ -48,6 +48,8 @@ function generate_toolchains() {
   done
    
   echo "</toolchains>" >> $target_file
+  
+  cat $target_file
 }
 
 
