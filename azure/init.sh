@@ -42,7 +42,7 @@ function generate_toolchains() {
     _add_toolchain "openjdk" "$line" >> $target_file
   done
    
-  echo "</toolchains> >> $target_file
+  echo "</toolchains>" >> $target_file
 }
 
 
