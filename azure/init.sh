@@ -49,7 +49,7 @@ EOF
   done
   
   # ubuntu style
-  find /usr/lib*/jvm -type f -name javac | grep -E -- "-[0-9]-" | sort | sed 's|^\(.*java-\([0-9]\)-\([^/^-]*\).*\)\/bin\/javac$|\3 1.\2 \1|' | while read line ; do
+  find /usr/lib*/jvm -type f -name javac | grep -E -- "-[0-9]*-" | sort | sed 's|^\(.*java-\([0-9]*\)-\([^/^-]*\).*\)\/bin\/javac$|\3 1.\2 \1|' | while read line ; do
     # returns "vendor version path"
     _add_toolchain $line
   done
