@@ -32,14 +32,19 @@ function generate_toolchains() {
 
   # look at the installed JDKs
    
-  # First, oracle paths:
+  # oracle paths:
   find /usr/java -type f -name javac | grep -v jre | grep -E "[0-9]\.[0-9]" | sort | sed "s/^\(.*jdk\([0-9]\.[0-9]\)\.[0-9].*\)\/bin\/javac$/\2 \1/" | while read line ; do
     _add_toolchain "Oracle Corporation" "$line" >> $target_file
   done 
    
-  # second, openjdk paths
+  # openjdk paths
   find /usr/lib*/jvm -type f -name javac | grep -v jre | grep -E "[0-9]\.[0-9]" | sort | sed "s/^\(.*java-\([0-9]\.[0-9]\)\.[0-9].*\)\/bin\/javac$/\2 \1/" | while read line ; do
     _add_toolchain "openjdk" "$line" >> $target_file
+  done
+  
+  # zulu paths:
+  find /usr/lib*/jvm -type f -name javac | grep -v jre | grep -E -- "zulu-" | sort | sed "s/^\(.*zulu-\([^/]*\)\)\/bin\/javac$/1.\2 \1/" | while read line ; do
+    _add_toolchain "zulu" "$line" >> $target_file
   done
    
   echo "</toolchains>" >> $target_file
