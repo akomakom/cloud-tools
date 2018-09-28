@@ -50,6 +50,9 @@ function generate_toolchains() {
   echo "</toolchains>" >> $target_file
   
   cat $target_file
+  
+  # debug
+  find /usr/lib/jvm* -type f -name javac
 }
 
 
