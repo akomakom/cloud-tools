@@ -28,8 +28,8 @@ function generate_toolchains() {
   
   cat > $target_file <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-  <toolchains>"
-EOF  
+  <toolchains>
+EOF
 
   # look at the installed JDKs
    
